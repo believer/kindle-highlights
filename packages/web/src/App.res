@@ -14,9 +14,12 @@ let make = () => {
     <h1 className="text-3xl font-bold"> {React.string("Kindle highlights")} </h1>
     <p className="max-w-3xl mt-4 mb-2 text-gray-600 text-sm">
       {React.string(
-        "This page parses all your Kindle highlights and provides options to filter by book and copy to Logseq and Roam. ",
+        "This page parses all your Kindle highlights and provides options to filter by book and copy to ",
       )}
-      <strong> {React.string("No data is saved.")} </strong>
+      <Link href="http://logseq.com/"> "Logseq" </Link>
+      {React.string(" and ")}
+      <Link href="https://roamresearch.com/"> "Roam Research" </Link>
+      <strong> {React.string(". No data is saved.")} </strong>
       {React.string(
         " The highlights are saved temporarily for parsing and destroyed before returning the parsed result.",
       )}
@@ -94,5 +97,12 @@ let make = () => {
     }}
     <Table rows=filteredRows search />
     <Dropzone onDrop=uploadFromDrop />
+    <footer className="mt-8 text-center text-gray-600 text-sm">
+      {React.string("Built by ")}
+      <Link href="https://twitter.com/rnattochdag"> "@rnattochdag" </Link>
+      {React.string(". ")}
+      <Link href="https://twitter.com/rnattochdag"> "Source code" </Link>
+      {React.string(" on GitHub")}
+    </footer>
   </div>
 }
