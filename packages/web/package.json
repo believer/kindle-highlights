@@ -8,7 +8,7 @@
     "serve": "vite serve",
     "server": "vite",
     "start": "cross-env BS_WATCH_CLEAR=true bsb -make-world -w",
-    "vercel-build": "npm run build && npm run build:prod"
+    "vercel-build": "npm run build && npm run build:production"
   },
   "keywords": [
     "ReScript"
