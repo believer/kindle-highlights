@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply p-0 m-0 font-normal;
+  }
+}
+
+@layer components {
+  .grid-table {
+    grid-template-columns: 250px 100px 30px 60px 1fr;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "ultisnips-parse-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Rickard Natt och Dag",
+  "license": "ISC",
+  "dependencies": {
+    "n-readlines": "1.0.1",
+    "node-fetch": "2.6.1"
+  },
+  "devDependencies": {
+    "prettier": "2.2.1"
+  }
+}

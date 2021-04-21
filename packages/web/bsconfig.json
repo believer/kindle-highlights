@@ -1,0 +1,31 @@
+{
+  "name": "web",
+  "reason": {
+    "react-jsx": 3
+  },
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "es6",
+      "in-source": true
+    }
+  ],
+  "suffix": ".bs.js",
+  "namespace": true,
+  "bs-dependencies": [
+    "@rescript/react",
+    "@ryyppy/rescript-promise",
+    "@opendevtools/rescript-intl",
+    "re-classnames"
+  ],
+  "refmt": 3,
+  "warnings": {
+    "number": "+A-9-40-42-48",
+    "error": "+A-3-40-42-44-102"
+  }
+}

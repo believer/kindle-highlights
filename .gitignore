@@ -1,0 +1,14 @@
+# Dependencies
+node_modules
+
+# Logs
+*.log
+
+# env
+.env
+
+# IDE
+.vscode
+
+# Mac
+.DS_Store
