@@ -37,8 +37,8 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
       <button
         className="bg-white text-gray-700 border border-gray-200 shadow-md rounded px-3 py-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 active:ring-indigo-400">
         {switch search {
-        | "" => `Copy rows (${copyTypeToApp})`
-        | _ => `Copy filtered rows (${copyTypeToApp})`
+        | "" => `Copy all (${copyTypeToApp})`
+        | _ => `Copy filtered (${copyTypeToApp})`
         }->React.string}
       </button>
     </Lib.CopyToClipboard>
