@@ -1,4 +1,4 @@
-import { metadata, handler, titleAndAuthors } from '../parse'
+import { findIssues, metadata, handler, titleAndAuthors } from '../parse'
 
 describe('#metadata', () => {
   test('parses page, location and date from line', () => {
@@ -191,5 +191,24 @@ Ego is the Enemy (The Way, the Enemy and the Key) (Holiday, Ryan)
     await handler(req, res)
 
     expect(res.json.mock.calls[0][0]).toMatchSnapshot()
+  })
+})
+
+describe('#findIssues', () => {
+  test('no issues if nothing is wrong', () => {
+    expect(findIssues({ containsSimilar: false, bodyLength: 20 })).toEqual([])
+  })
+
+  test('handle issue for similar entry', () => {
+    expect(findIssues({ containsSimilar: true, bodyLength: 20 })).toEqual([
+      'similar',
+    ])
+  })
+
+  test('handle short entries', () => {
+    expect(findIssues({ containsSimilar: true, bodyLength: 10 })).toEqual([
+      'similar',
+      'shortContent',
+    ])
   })
 })

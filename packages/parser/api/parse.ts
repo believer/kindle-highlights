@@ -71,6 +71,33 @@ export const titleAndAuthors = (line: Buffer | false): TitleAuthor => {
   }
 }
 
+interface IssueProps {
+  bodyLength: number
+  containsSimilar: boolean
+}
+
+enum Issue {
+  similar = 'similar',
+  short = 'shortContent',
+}
+
+export const findIssues = ({
+  bodyLength,
+  containsSimilar,
+}: IssueProps): Issue[] => {
+  const issues = []
+
+  if (containsSimilar) {
+    issues.push(Issue.similar)
+  }
+
+  if (bodyLength <= 10) {
+    issues.push(Issue.short)
+  }
+
+  return issues
+}
+
 const isValidBody = ({
   body,
   ids,
@@ -119,7 +146,7 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
 
     // If a similar exist for the same page, location and title
     // remove it and only keep the last one
-    const containsSimilar = output.findIndex(
+    const containsSimilar: number = output.findIndex(
       (highlight) =>
         highlight.title === title &&
         highlight.page === page &&
@@ -139,6 +166,10 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
         location,
         page,
         title,
+        issues: findIssues({
+          containsSimilar: containsSimilar > -1,
+          bodyLength: content.length,
+        }),
       })
 
       ids[id] = true
