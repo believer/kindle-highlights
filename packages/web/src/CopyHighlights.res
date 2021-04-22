@@ -14,16 +14,14 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
   | Roam => "\n\n"
   }
 
-  let copyData = rows->Belt.Array.map(({body, location}) => {
-    let combinedBody = body->Js.Array2.joinWith("\n")
-
+  let copyData = rows->Belt.Array.map(({content, location}) => {
     switch (copyType, includeLocation) {
-    | (Markdown, true) => `- ${combinedBody} (location ${location})`
-    | (Markdown, false) => `- ${combinedBody}`
-    | (Roam, true) => `${combinedBody} (location ${location})`
-    | (Roam, false) => combinedBody
-    | (Logseq, true) => `## ${combinedBody} (location ${location})`
-    | (Logseq, false) => `## ${combinedBody}`
+    | (Markdown, true) => `- ${content} (location ${location})`
+    | (Markdown, false) => `- ${content}`
+    | (Roam, true) => `${content} (location ${location})`
+    | (Roam, false) => content
+    | (Logseq, true) => `## ${content} (location ${location})`
+    | (Logseq, false) => `## ${content}`
     }
   })
 

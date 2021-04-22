@@ -15,7 +15,7 @@ let make = (~rows: t) => {
         <div> {React.string("Highlight")} </div>
       </div>
       {rows
-      ->Belt.Array.mapWithIndex((i, {body, authors, title, id, location, page}) => {
+      ->Belt.Array.mapWithIndex((i, {content, authors, title, id, location, page}) => {
         <div
           className={Cn.fromList(list{
             "grid md:grid-table gap-2 md:gap-4 p-2",
@@ -29,7 +29,7 @@ let make = (~rows: t) => {
           <div> {authors->Js.Array2.joinWith(", ")->React.string} </div>
           <div className="md:text-right"> {React.string(page)} </div>
           <div className="md:text-right"> {React.string(location)} </div>
-          <div> {body->Js.Array2.joinWith("\n")->React.string} </div>
+          <div> {React.string(content)} </div>
         </div>
       })
       ->React.array}

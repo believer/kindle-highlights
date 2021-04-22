@@ -114,7 +114,8 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
       line = liner.next()
     }
 
-    const id = md5(body[0])
+    const content = body.join('\n')
+    const id = md5(content)
 
     // If a similar exist for the same page, location and title
     // remove it and only keep the last one
@@ -133,7 +134,7 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
       output.push({
         authors,
         id,
-        body,
+        content,
         date,
         location,
         page,

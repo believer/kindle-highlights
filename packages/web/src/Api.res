@@ -10,7 +10,7 @@ module Response = {
 module Highlight = {
   type t = {
     authors: array<string>,
-    body: array<string>,
+    content: string,
     date: option<string>,
     id: string,
     title: string,
