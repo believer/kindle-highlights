@@ -10,13 +10,24 @@ module QueryClientProvider = {
     "QueryClientProvider"
 }
 
-type queryResponse<'a> = {
+type query<'a> = {
   isLoading: bool,
+  isIdle: bool,
   data: Js.Undefined.t<'a>,
 }
 
-@module("react-query")
-external useArrayQuery: (array<string>, unit => Promise.t<'a>) => queryResponse<'a> = "useQuery"
+type mutation<'a> = {
+  isLoading: bool,
+  isIdle: bool,
+  data: Js.Undefined.t<'a>,
+  mutate: (. string) => unit,
+}
 
 @module("react-query")
-external useQuery: (string, unit => Promise.t<'a>) => queryResponse<'a> = "useQuery"
+external useArrayQuery: (array<string>, unit => Promise.t<'a>) => query<'a> = "useQuery"
+
+@module("react-query")
+external useQuery: (string, unit => Promise.t<'a>) => query<'a> = "useQuery"
+
+@module("react-query")
+external useMutation: (string => Promise.t<'a>) => mutation<'a> = "useMutation"

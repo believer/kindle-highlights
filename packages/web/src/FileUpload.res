@@ -1,11 +1,10 @@
 open Promise
 
 let use = () => {
-  let (state, setState) = React.useState(() => [])
+  let (state, setState) = React.useState(() => "")
 
   let handleUpload = file => {
     file["text"]()
-    ->then(Api.Locations.parse)
     ->then(data => {
       setState(_ => data)
       resolve()

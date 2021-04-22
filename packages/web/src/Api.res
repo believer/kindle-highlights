@@ -1,13 +1,11 @@
 let baseUrl = "https://kindle-api.willcodefor.beer"
 
-type t<'a> = Loading | Data('a) | NoData
+type t<'a> = Loading | Data('a) | NoData | Idle
 
 module Response = {
   type t<'data>
   @send external json: t<'data> => Promise.t<'data> = "json"
 }
-
-type response = {"token": Js.Nullable.t<string>, "error": Js.Nullable.t<string>}
 
 module Highlight = {
   type t = {
@@ -21,11 +19,13 @@ module Highlight = {
   }
 }
 
-module Locations = {
+module Highlights = {
+  open Promise
+
   @val @scope("globalThis")
   external post: (string, Js.t<_>) => Promise.t<Response.t<array<Highlight.t>>> = "fetch"
 
-  let parse = (data: string) => {
+  let sendData = data => {
     post(
       `${baseUrl}/api/parse`,
       {
@@ -34,6 +34,53 @@ module Locations = {
           "data": data,
         }),
       },
-    )->Promise.then(res => Response.json(res))
+    )
+    ->then(res => Response.json(res))
+    ->then(data => resolve(data))
+  }
+
+  let useUpload = () => {
+    let (highlights, setHighlights) = React.useState(() => "")
+    let {data, isLoading, isIdle, mutate} = ReactQuery.useMutation(data => sendData(data))
+
+    React.useEffect1(() => {
+      if highlights != "" {
+        mutate(. highlights)
+      }
+
+      None
+    }, [highlights])
+
+    let handleUpload = file => {
+      file["text"]()
+      ->then(data => {
+        setHighlights(_ => data)
+        resolve()
+      })
+      ->ignore
+    }
+
+    let uploadFromFile = e => (e->ReactEvent.Form.target)["files"][0]->handleUpload
+
+    let uploadFromDrop = e => {
+      let item = e["dataTransfer"]["items"][0]
+      switch item["kind"] {
+      | "file" => item["getAsFile"]()->handleUpload
+      | _ => ()
+      }
+    }
+
+    (
+      switch (isLoading, isIdle, Js.Undefined.toOption(data)) {
+      | (false, false, Some(data)) => Data(data)
+      | (false, true, _) => Idle
+      | (true, false, _) => Loading
+      | (true, true, _)
+      | (false, false, _) =>
+        NoData
+      },
+      uploadFromFile,
+      uploadFromDrop,
+    )
   }
 }

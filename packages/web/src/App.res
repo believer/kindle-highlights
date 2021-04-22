@@ -1,14 +1,16 @@
+let filterRows = ({title}: Api.Highlight.t, ~query) => {
+  open Js.String2
+
+  switch query {
+  | "" => true
+  | q => title->toLowerCase->includes(q->toLowerCase)
+  }
+}
+
 @react.component
 let make = () => {
-  let (rows, uploadFile, uploadFromDrop) = FileUpload.use()
+  let (data, uploadFile, uploadFromDrop) = Api.Highlights.useUpload()
   let (search, setSearch) = React.useState(() => "")
-
-  let filteredRows = rows->Belt.Array.keep(({title}) => {
-    switch search {
-    | "" => true
-    | q => title->Js.String.toLowerCase->Js.String2.includes(q->Js.String2.toLowerCase)
-    }
-  })
 
   <div className="max-w-6xl mx-auto my-8 md:my-20 px-5 md:px-0">
     <h1 className="text-3xl font-bold"> {React.string("Kindle highlights")} </h1>
@@ -35,11 +37,14 @@ let make = () => {
           <input className="hidden" type_="file" onChange={uploadFile} />
           {React.string("Analyze highlights")}
         </label>
-        {switch rows->Belt.Array.length {
-        | 0 => React.null
-        | _ => <>
+        {switch data {
+        | Idle
+        | NoData
+        | Loading => React.null
+        | Data(rows) => <>
             <Lib.CopyToClipboard
-              text={filteredRows
+              text={rows
+              ->Belt.Array.keep(filterRows(~query=search))
               ->Belt.Array.map(({body, location}) => {
                 let combinedBody = body->Js.Array2.joinWith("\n")
 
@@ -55,7 +60,8 @@ let make = () => {
               </button>
             </Lib.CopyToClipboard>
             <Lib.CopyToClipboard
-              text={filteredRows
+              text={rows
+              ->Belt.Array.keep(filterRows(~query=search))
               ->Belt.Array.map(({body, location}) => {
                 let combinedBody = body->Js.Array2.joinWith("\n")
 
@@ -73,9 +79,11 @@ let make = () => {
           </>
         }}
       </div>
-      {switch rows->Belt.Array.length {
-      | 0 => React.null
-      | _ =>
+      {switch data {
+      | Idle
+      | NoData
+      | Loading => React.null
+      | Data(_) =>
         <input
           className="border border-gray-200 px-3 py-2 rounded"
           type_="text"
@@ -88,14 +96,31 @@ let make = () => {
         />
       }}
     </div>
-    {switch rows->Belt.Array.length {
-    | 0 => React.null
-    | _ =>
-      <div className="text-sm text-gray-500 mt-2">
-        {React.string("For Roam, right click and select 'Paste and match style'")}
+    {switch data {
+    | Idle =>
+      <div className="text-center p-8 text-gray-600 border border-gray-200 mt-12 rounded">
+        {React.string("Add a file by clicking above or dropping a file on the page")}
       </div>
+    | NoData => React.null
+    | Loading =>
+      <div className="text-center p-8 text-gray-600 border border-gray-200 mt-12 rounded">
+        {React.string("Loading...")}
+      </div>
+    | Data(rows) => {
+        let filteredRows = rows->Belt.Array.keep(filterRows(~query=search))
+
+        switch (filteredRows->Belt.Array.length, search) {
+        | (0, q) if q != "" =>
+          <div className="text-center p-8"> {React.string("Nothing matched your search")} </div>
+        | _ => <>
+            <div className="text-sm text-gray-500 mt-2">
+              {React.string("For Roam, right click and select 'Paste and match style'")}
+            </div>
+            <Table rows=filteredRows />
+          </>
+        }
+      }
     }}
-    <Table rows=filteredRows search />
     <Dropzone onDrop=uploadFromDrop />
     <footer className="mt-8 text-center text-gray-600 text-sm">
       {React.string("Built by ")}
