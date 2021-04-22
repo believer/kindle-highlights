@@ -7,6 +7,10 @@ module Response = {
   @send external json: t<'data> => Promise.t<'data> = "json"
 }
 
+module Issue = {
+  type t = [#similar | #short]
+}
+
 module Highlight = {
   type t = {
     authors: array<string>,
@@ -15,6 +19,7 @@ module Highlight = {
     id: string,
     title: string,
     page: string,
+    issues: array<Issue.t>,
     location: string,
   }
 }
