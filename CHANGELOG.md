@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/believer/kindle-highlights/compare/v1.1.0...v1.1.1) (2021-04-22)
+
+
+### Bug Fixes
+
+* **web:** dark mode on form elements ([802f23f](https://github.com/believer/kindle-highlights/commit/802f23f96637df95caba73b2355710bffd7be8de))
+* **web:** update dark mode active state of buttons ([7ab9f6f](https://github.com/believer/kindle-highlights/commit/7ab9f6fc049c861ccd17bd5ff5ab71344a5b07f1))
+
 # [1.1.0](https://github.com/believer/kindle-highlights/compare/v1.0.0...v1.1.0) (2021-04-22)
 
 
