@@ -57,3 +57,21 @@ Array [
   },
 ]
 `;
+
+exports[`#handler only include the latest if multiple clippings 1`] = `
+Array [
+  Object {
+    "authors": Array [
+      "Ryan Holiday",
+    ],
+    "body": Array [
+      "“He who fears death will never do anything worthy of a living man,” Seneca once said. Alter that: He who will do anything to avoid failure will almost certainly do something worthy of a failure.",
+    ],
+    "date": "2021-03-23T21:59:53.000Z",
+    "id": "556f6bc53437f85b0d3420a8deb9402e",
+    "location": "2227",
+    "page": "193",
+    "title": "Ego is the Enemy",
+  },
+]
+`;

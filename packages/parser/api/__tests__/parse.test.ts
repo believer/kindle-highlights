@@ -159,4 +159,37 @@ annat ändras? Detta kan visserligen betyda att vi föräldrar ibland måste gö
 
     expect(res.json.mock.calls[0][0]).toMatchSnapshot()
   })
+
+  test('only include the latest if multiple clippings', async () => {
+    const data = `Ego is the Enemy (The Way, the Enemy and the Key) (Holiday, Ryan)
+- Your Highlight on page 193 | Location 2227-2227 | Added on Tuesday, March 23, 2021 10:59:33 PM
+
+“He who fears death will never do anything worthy of a living man,” Seneca once
+==========
+Ego is the Enemy (The Way, the Enemy and the Key) (Holiday, Ryan)
+- Your Highlight on page 193 | Location 2227-2227 | Added on Tuesday, March 23, 2021 10:59:39 PM
+
+“He who fears death will never do anything worthy of a living man,” Seneca once said.
+==========
+Ego is the Enemy (The Way, the Enemy and the Key) (Holiday, Ryan)
+- Your Highlight on page 193 | Location 2227-2228 | Added on Tuesday, March 23, 2021 10:59:48 PM
+
+“He who fears death will never do anything worthy of a living man,” Seneca once said. Alter that: He who will do anything to avoid failure will almost
+==========
+Ego is the Enemy (The Way, the Enemy and the Key) (Holiday, Ryan)
+- Your Highlight on page 193 | Location 2227-2228 | Added on Tuesday, March 23, 2021 10:59:53 PM
+
+“He who fears death will never do anything worthy of a living man,” Seneca once said. Alter that: He who will do anything to avoid failure will almost certainly do something worthy of a failure.
+==========`
+
+    const req: any = {
+      body: JSON.stringify({ data }),
+    }
+
+    const res: any = { json: jest.fn() }
+
+    await handler(req, res)
+
+    expect(res.json.mock.calls[0][0]).toMatchSnapshot()
+  })
 })

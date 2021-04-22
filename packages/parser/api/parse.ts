@@ -79,9 +79,7 @@ const isValidBody = ({
   body: string[]
   ids: Record<string, boolean>
   id: string
-}): boolean => {
-  return body[0] !== '\r' && body[0] !== '' && !ids[id]
-}
+}): boolean => body[0] !== '\r' && body[0] !== '' && !ids[id]
 
 export const handler = async (req: NowRequest, res: NowResponse) => {
   const { data } = JSON.parse(req.body)
@@ -117,6 +115,19 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
     }
 
     const id = md5(body[0])
+
+    // If a similar exist for the same page, location and title
+    // remove it and only keep the last one
+    const containsSimilar = output.findIndex(
+      (highlight) =>
+        highlight.title === title &&
+        highlight.page === page &&
+        highlight.location === location
+    )
+
+    if (containsSimilar !== -1) {
+      output.splice(containsSimilar, 1)
+    }
 
     if (isValidBody({ body, ids, id })) {
       output.push({
