@@ -2,7 +2,7 @@
 let make = () => {
   let {copyType, setCopyType, includeLocation, setIncludeLocation} = GlobalState.use()
 
-  <div className="mt-8 border-gray-200 border p-5 grid grid-cols-2">
+  <div className="mt-8 border-gray-200 dark:border-gray-800 border p-5 grid grid-cols-2">
     <Form.RadioButtonGroup
       label="Preferred format to copy highlights"
       name="copy-type"

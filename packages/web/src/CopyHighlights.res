@@ -35,7 +35,7 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
         Lib.HotToast.make->Lib.HotToast.success(`${numberOfHighlights} highlights copied!`)
       }}>
       <button
-        className="bg-white text-gray-700 border border-gray-200 shadow-md rounded px-3 py-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 active:ring-indigo-400">
+        className="bg-white text-gray-700 border border-gray-200 shadow-md rounded px-3 py-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 active:ring-indigo-400 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:ring-offset-gray-900 dark:focus:ring-indigo-800 dark:hover:ring-indigo-800">
         {switch search {
         | "" => `Copy all (${copyTypeToApp})`
         | _ => `Copy filtered (${copyTypeToApp})`
@@ -44,10 +44,10 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
     </Lib.CopyToClipboard>
     <button
       className={Cn.fromList(list{
-        "border shadow-md rounded p-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 active:ring-pink-300",
+        "border shadow-md rounded p-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 active:ring-pink-300 dark:ring-offset-gray-900 dark:focus:ring-indigo-800 dark:hover:ring-indigo-800",
         switch showSettings {
         | true => "bg-pink-300 text-pink-700 border-pink-400"
-        | false => "bg-white text-gray-700 border-gray-200"
+        | false => "bg-white text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700"
         },
       })}
       onClick={toggleSettings}>

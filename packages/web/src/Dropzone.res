@@ -6,8 +6,8 @@ let make = (~onDrop) => {
 
   <textarea
     className={Cn.fromList(list{
-      "fixed inset-0 bg-white w-full -z-10",
-      "bg-indigo-100"->Cn.on(isDragOver),
+      "fixed inset-0 bg-white w-full dark:bg-gray-900 -z-10",
+      "bg-indigo-100 dark:bg-indigo-900"->Cn.on(isDragOver),
     })}
     onDragEnter={_ => setIsDragOver(_ => true)}
     onDragLeave={_ => setIsDragOver(_ => false)}

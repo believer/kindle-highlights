@@ -15,9 +15,9 @@ let make = () => {
 
   <GlobalState.Provider>
     <Lib.HotToast.Toaster />
-    <div className="max-w-6xl mx-auto my-8 md:my-20 px-5 md:px-0">
+    <div className="max-w-6xl mx-auto py-8 md:py-20 px-5 md:px-0">
       <h1 className="text-3xl font-bold"> {React.string("Kindle highlights")} </h1>
-      <p className="max-w-3xl mt-4 mb-2 text-gray-600 text-sm">
+      <p className="max-w-3xl mt-4 mb-2 text-gray-600 dark:text-gray-400 text-sm">
         {React.string(
           "This page parses all your Kindle highlights and provides options to filter by book and copy to ",
         )}
@@ -29,7 +29,7 @@ let make = () => {
           " The highlights are saved temporarily for parsing and destroyed before returning the parsed result.",
         )}
       </p>
-      <p className="max-w-3xl mb-8 text-gray-600 text-sm">
+      <p className="max-w-3xl mb-8 text-gray-600 dark:text-gray-400 text-sm">
         {React.string(
           "Connect your Kindle to your computer, find it in Explorer/Finder and navigate to the documents folder. Here you'll find a 'My Clippings.txt' which contains all your highlights. Upload this file using the analyze button or drop the file on the page.",
         )}
@@ -37,7 +37,7 @@ let make = () => {
       <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-0">
         <div className="flex flex-col md:flex-row gap-2 md:gap-4">
           <label
-            className="bg-indigo-600 text-white shadow-md px-3 py-2 rounded focus:ring-offset-2 focus:ring-indigo-300 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none cursor-pointer hover:ring-2 focus:ring-2"
+            className="bg-indigo-600 text-white shadow-md px-3 py-2 rounded focus:ring-offset-2 focus:ring-indigo-300 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none cursor-pointer hover:ring-2 focus:ring-2 dark:ring-offset-gray-900 dark:focus:ring-indigo-800 dark:hover:ring-indigo-800"
             tabIndex={0}>
             <input className="hidden" type_="file" onChange={uploadFile} />
             {React.string("Analyze highlights")}
@@ -63,7 +63,7 @@ let make = () => {
         | Loading => React.null
         | Data(_) =>
           <input
-            className="border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200"
+            className="border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 dark:bg-gray-800 dark:border-gray-700"
             type_="text"
             onChange={e => {
               let value = (e->ReactEvent.Form.target)["value"]
@@ -89,12 +89,14 @@ let make = () => {
       }}
       {switch data {
       | Idle =>
-        <div className="text-center p-8 text-gray-600 border border-gray-200 mt-12 rounded">
+        <div
+          className="text-center p-8 text-gray-600 border border-gray-200 mt-12 rounded dark:border-gray-800">
           {React.string("Add a file by clicking above or dropping a file on the page")}
         </div>
       | NoData => React.null
       | Loading =>
-        <div className="text-center p-8 text-gray-600 border border-gray-200 mt-12 rounded">
+        <div
+          className="text-center p-8 text-gray-600 border border-gray-200 mt-12 rounded dark:border-gray-800">
           {React.string("Loading...")}
         </div>
       | Data(rows) => {
@@ -107,7 +109,6 @@ let make = () => {
           }
         }
       }}
-      <Dropzone onDrop=uploadFromDrop />
       <footer className="mt-8 text-center text-gray-600 text-xs">
         {React.string("Built by ")}
         <Link href="https://twitter.com/rnattochdag"> "@rnattochdag" </Link>
@@ -116,5 +117,6 @@ let make = () => {
         {React.string(" on GitHub")}
       </footer>
     </div>
+    <Dropzone onDrop=uploadFromDrop />
   </GlobalState.Provider>
 }
