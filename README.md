@@ -1,5 +1,7 @@
 # Kindle Highlights
 
+[![](https://github.com/believer/kindle-highlights/workflows/Release/badge.svg)](https://github.com/believer/kindle-highlights/actions?workflow=Release)
+
 This is a perfect application if you read a lot on a Kindle and want to create
 notes from your highlights.
 
