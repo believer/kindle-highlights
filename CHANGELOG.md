@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/believer/kindle-highlights/compare/v1.0.0...v1.1.0) (2021-04-22)
+
+
+### Bug Fixes
+
+* input styling in dark mode ([c5138ac](https://github.com/believer/kindle-highlights/commit/c5138ac32a038464efcd854a1734af149ca645f1))
+
+
+### Features
+
+* show total number of good notes and notes with potential issues ([4626fe2](https://github.com/believer/kindle-highlights/commit/4626fe23ef0981f0883d93b286a939efd833e989))
+
 # 1.0.0 (2021-04-22)
 
 
