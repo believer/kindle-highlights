@@ -11,17 +11,17 @@ highlights in three different formats:
 - [Roam Research](https://roamresearch.com/)
 - Markdown
 
-![Screenshot of the application](/screenshots/shreenshot.png)
+![Screenshot of the application](/screenshots/screenshot.png)
 
 ## Parser
 
 The parser takes the Kindle highlights file, `My Clippings.txt`, and returns an array with parsed data that is presented in the web interface.
-This code lives in [`parser`](/packages/parser).
+This code lives in [`parser`](/packages/parser) and is written in JavaScript.
 
 ## Web
 
 The web interface which is available at [https://kindle.willcodefor.beer](https://kindle.willcodefor.beer).
-This code lives in [`web`](/packages/web).
+This code lives in [`web`](/packages/web) and is written in [ReScript](http://rescript-lang.org/).
 
 ### Step-by-step
 
