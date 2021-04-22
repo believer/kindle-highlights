@@ -6,5 +6,6 @@
   },
   "scripts": {
     "test": "lerna run test --stream"
-  }
+  },
+  "version": "1.0.0"
 }
