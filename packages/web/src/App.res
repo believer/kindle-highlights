@@ -63,7 +63,7 @@ let make = () => {
         | Loading => React.null
         | Data(_) =>
           <input
-            className="border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 dark:bg-gray-800 dark:border-gray-700"
+            className="border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 dark:bg-gray-800 dark:border-gray-700 dark:focus:ring-offset-gray-800 dark:focus:ring-indigo-800"
             type_="text"
             onChange={e => {
               let value = (e->ReactEvent.Form.target)["value"]
