@@ -37,7 +37,7 @@ let make = () => {
       <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-0">
         <div className="flex flex-col md:flex-row gap-2 md:gap-4">
           <label
-            className="bg-indigo-600 text-white shadow-md px-3 py-2 rounded focus:ring-offset-2 focus:ring-indigo-300 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none cursor-pointer hover:ring-2 focus:ring-2 dark:ring-offset-gray-900 dark:focus:ring-indigo-800 dark:hover:ring-indigo-800"
+            className="bg-indigo-600 text-white shadow-md px-3 py-2 rounded focus:ring-offset-2 focus:ring-indigo-300 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none cursor-pointer hover:ring-2 focus:ring-2 dark:ring-offset-gray-900 dark:focus:ring-indigo-800 dark:hover:ring-indigo-800 dark:active:ring-pink-600"
             tabIndex={0}>
             <input className="hidden" type_="file" onChange={uploadFile} />
             {React.string("Analyze highlights")}
