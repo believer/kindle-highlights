@@ -1,4 +1,8 @@
-export const allowCors = (fn) => async (req, res) => {
+import { NowRequest, NowResponse } from '@vercel/node'
+
+export const allowCors = (
+  fn: (req: NowRequest, res: NowResponse) => Promise<void>
+) => async (req: NowRequest, res: NowResponse) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader(

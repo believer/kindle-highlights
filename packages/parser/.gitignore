@@ -1,1 +1,17 @@
+# Dependencies
+node_modules
+
+# Logs
+*.log
+
+# env
+.env
+
+# IDE
+.vscode
 .vercel
+
+# Mac
+.DS_Store
+
+out
