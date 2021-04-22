@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`#handler can parse two entries 1`] = `
+Array [
+  Object {
+    "authors": Array [
+      "Bo Hejlskov",
+      "Tina Wiman",
+    ],
+    "body": Array [
+      "annat ändras? Detta kan visserligen betyda att vi föräldrar ibland måste göra upp med våra inre föreställningar om hur saker måste vara. Men om vi inte ändrar förutsättningarna kan vi inte heller räkna med att bråken blir färre. Många bråk uppstår när barnen – eller vi vuxna – är hungriga eller trötta. Det kan vara innan maten eller när barnen kommer hem från skolan eller vi från jobbet. Det betyder att det ofta går att förutse när på dagen det kommer att bli bråk och att vi då kan planera in fungerande aktiviteter, mellanmål eller tid för vila. Tänk på att även vi vuxna behöver vila och äta på strategiska tider för att orka förebygga bråk. Håll utkik efter de situationer där barnen inte bråkar, om det finns några. Vad är det som är annorlunda då? Försök att använda det även i andra situationer. Gör mer av de aktiviteter som fungerar. Mer tid i fungerande situationer betyder mindre tid med bråk. Se till att förbereda med bra strukturer vid gemensamma utflykter. Om familjen tillsammans ska bestämma efterhand vad som ska hända kommer det definitivt att bli bråk. Gör i stället ett schema för hur dagen ska se ut. Bestäm i förväg var ni ska äta och när det bär av hemåt igen. Och låt gärna barnen vara med och bestämma, strukturen kan göras i god tid tillsammans med dem. Men det är viktigt att komma ihåg att det alltid är föräldrarna som har sista ordet. Se inte syskonbråk som ett föräldramisslyckande. Försök i stället att se det som situationer som dels ska lösas här och nu, dels förebyggas på sikt. Då är det lättare att hålla sig lugn. Vi har sagt det förut, men det tål att upprepas – syskon bråkar med varandra. Det är något mycket vardagligt.",
+    ],
+    "date": "2020-08-16T19:57:33.000Z",
+    "id": "bc5e71897bc82dc32d582e8d3a3ebb7a",
+    "location": "1684",
+    "page": "110",
+    "title": "Barn som bråkar",
+  },
+  Object {
+    "authors": Array [
+      "Cal Newport",
+    ],
+    "body": Array [
+      "of one, a lonely voice issuing ex",
+    ],
+    "date": "2019-03-19T16:28:00.000Z",
+    "id": "709e3cff6f9446ea2ca786a8ac21bf56",
+    "location": "601",
+    "page": "50",
+    "title": "Deep Work",
+  },
+  Object {
+    "authors": Array [
+      "Mark Manson",
+    ],
+    "body": Array [
+      "Rather, a healthy relationship is when two people solve their own problems in order to feel good about each other.",
+    ],
+    "date": "2019-05-27T20:26:05.000Z",
+    "id": "be6265c5b34192df7308388621b77609",
+    "location": "2338",
+    "page": "177",
+    "title": "The Subtle Art of Not Giving a F*ck",
+  },
+  Object {
+    "authors": Array [
+      "Mark Manson",
+    ],
+    "body": Array [
+      "It’s not about giving a fuck about everything your partner gives a fuck about; it’s about giving a fuck about your partner regardless of the fucks he or she gives. That’s unconditional love, baby.",
+    ],
+    "date": "2019-05-27T20:30:32.000Z",
+    "id": "12065bcac905f31654df1b7298147170",
+    "location": "2384",
+    "page": "181",
+    "title": "The Subtle Art of Not Giving a F*ck",
+  },
+]
+`;
