@@ -33,7 +33,9 @@ let make = () => {
     </p>
     <div className="flex flex-col md:flex-row justify-between gap-2 md:gap-0">
       <div className="flex flex-col md:flex-row gap-2 md:gap-4">
-        <label className="bg-indigo-600 text-white shadow-md px-3 py-2 rounded">
+        <label
+          className="bg-indigo-600 text-white shadow-md px-3 py-2 rounded focus:ring-offset-2 focus:ring-indigo-300 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none cursor-pointer hover:ring-2 focus:ring-2"
+          tabIndex={0}>
           <input className="hidden" type_="file" onChange={uploadFile} />
           {React.string("Analyze highlights")}
         </label>
@@ -52,7 +54,7 @@ let make = () => {
               })
               ->Js.Array2.joinWith("\n")}>
               <button
-                className="bg-white text-gray-700 border border-gray-200 shadow-md rounded px-3 py-2">
+                className="bg-white text-gray-700 border border-gray-200 shadow-md rounded px-3 py-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
                 {switch search {
                 | "" => "Copy rows (Logseq)"
                 | _ => "Copy filtered rows (Logseq)"
@@ -69,7 +71,7 @@ let make = () => {
               })
               ->Js.Array2.joinWith("\n\n")}>
               <button
-                className="bg-white text-gray-700 shadow-md border border-gray-200 rounded px-3 py-2">
+                className="bg-white text-gray-700 border border-gray-200 shadow-md rounded px-3 py-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
                 {switch search {
                 | "" => "Copy rows (Roam)"
                 | _ => "Copy filtered rows (Roam)"
@@ -85,7 +87,7 @@ let make = () => {
       | Loading => React.null
       | Data(_) =>
         <input
-          className="border border-gray-200 px-3 py-2 rounded"
+          className="border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200"
           type_="text"
           onChange={e => {
             let value = (e->ReactEvent.Form.target)["value"]
