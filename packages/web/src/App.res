@@ -112,7 +112,7 @@ let make = () => {
         {React.string("Built by ")}
         <Link href="https://twitter.com/rnattochdag"> "@rnattochdag" </Link>
         {React.string(". ")}
-        <Link href="https://twitter.com/rnattochdag"> "Source code" </Link>
+        <Link href="https://github.com/believer/kindle-highlights"> "Source code" </Link>
         {React.string(" on GitHub")}
       </footer>
     </div>
