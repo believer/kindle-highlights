@@ -16,6 +16,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
 
+      - name: Setup timezone
+        uses: zcong1993/setup-timezone@master
+        with:
+          timezone: Europe/Stockholm
+
       - name: Run tests and linting
         run: |
           npm install
