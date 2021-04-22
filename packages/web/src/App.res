@@ -78,6 +78,23 @@ let make = () => {
                 }->React.string}
               </button>
             </Lib.CopyToClipboard>
+            <Lib.CopyToClipboard
+              text={rows
+              ->Belt.Array.keep(filterRows(~query=search))
+              ->Belt.Array.map(({body, location}) => {
+                let combinedBody = body->Js.Array2.joinWith("\n")
+
+                `- ${combinedBody} (location ${location})`
+              })
+              ->Js.Array2.joinWith("\n")}>
+              <button
+                className="bg-white text-gray-700 border border-gray-200 shadow-md rounded px-3 py-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200">
+                {switch search {
+                | "" => "Copy rows (Markdown)"
+                | _ => "Copy filtered rows (Markdown)"
+                }->React.string}
+              </button>
+            </Lib.CopyToClipboard>
           </>
         }}
       </div>
