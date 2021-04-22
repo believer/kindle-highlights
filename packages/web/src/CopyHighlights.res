@@ -1,6 +1,6 @@
 @react.component
 let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettings) => {
-  let {copyType} = GlobalState.use()
+  let {copyType, includeLocation} = GlobalState.use()
 
   let copyTypeToApp = switch copyType {
   | Markdown => "Markdown"
@@ -17,10 +17,13 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
   let copyData = rows->Belt.Array.map(({body, location}) => {
     let combinedBody = body->Js.Array2.joinWith("\n")
 
-    switch copyType {
-    | Markdown => `- ${combinedBody} (location ${location})`
-    | Roam => `${combinedBody} (location ${location})`
-    | Logseq => `## ${combinedBody} (location ${location})`
+    switch (copyType, includeLocation) {
+    | (Markdown, true) => `- ${combinedBody} (location ${location})`
+    | (Markdown, false) => `- ${combinedBody}`
+    | (Roam, true) => `${combinedBody} (location ${location})`
+    | (Roam, false) => combinedBody
+    | (Logseq, true) => `## ${combinedBody} (location ${location})`
+    | (Logseq, false) => `## ${combinedBody}`
     }
   })
 

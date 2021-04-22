@@ -21,12 +21,32 @@ module Settings = {
     }
 }
 
+module BoolValue = {
+  type t = bool
+
+  let key = "include-location"
+
+  let fromString = value =>
+    switch value {
+    | Some("false") => false
+    | Some("true") => true
+    | Some(_)
+    | None => false
+    }
+
+  let toString = value =>
+    switch value {
+    | true => "true"
+    | false => "false"
+    }
+}
+
 module Context = {
   type t = {
     copyType: Settings.t,
     setCopyType: Settings.t => unit,
-    includeLocation: bool,
-    setIncludeLocation: (bool => bool) => unit,
+    includeLocation: BoolValue.t,
+    setIncludeLocation: BoolValue.t => unit,
   }
 
   include ReactContext.Make({
@@ -41,13 +61,14 @@ module Context = {
   })
 }
 
-module SettingsStorage = Storage.Make(Settings)
+module CopyType = Storage.Make(Settings)
+module Location = Storage.Make(BoolValue)
 
 module Provider = {
   @react.component
   let make = (~children) => {
-    let (copyType, setCopyType) = SettingsStorage.useLocalStorage()
-    let (includeLocation, setIncludeLocation) = React.useState(() => false)
+    let (copyType, setCopyType) = CopyType.useLocalStorage()
+    let (includeLocation, setIncludeLocation) = Location.useLocalStorage()
 
     <Context.Provider
       value={{
