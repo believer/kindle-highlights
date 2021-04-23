@@ -1,6 +1,22 @@
+type note = {
+  page: string,
+  location: string,
+  text: string,
+}
+
+type bookNotes = {
+  authors: array<string>,
+  bookId: string,
+  date: option<string>,
+  id: string,
+  title: string,
+  issues: array<Api.Issue.t>,
+  notes: array<note>,
+}
+
 @react.component
 let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettings) => {
-  let {copyType, includeIssues, includeLocation} = GlobalState.use()
+  let {copyType, customTemplate, includeIssues, includeLocation} = GlobalState.use()
 
   let copyTypeToApp = switch copyType {
   | Markdown => "Markdown"
@@ -14,7 +30,7 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
   | Roam => "\n\n"
   }
 
-  let copyData =
+  let allBooks =
     rows
     ->Belt.Array.keep(({issues}) => {
       switch (issues->Belt.Array.length, includeIssues) {
@@ -23,20 +39,72 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
       | (_, false) => false
       }
     })
-    ->Belt.Array.map(({content, location}) => {
-      switch (copyType, includeLocation) {
-      | (Markdown, true) => `- ${content} (location ${location})`
-      | (Markdown, false) => `- ${content}`
-      | (Roam, true) => `${content} (location ${location})`
-      | (Roam, false) => content
-      | (Logseq, true) => `## ${content} (location ${location})`
-      | (Logseq, false) => `## ${content}`
+    ->Belt.Array.reduce(list{}, (books: list<(string, bookNotes)>, book) => {
+      switch books->Belt.List.getAssoc(book.bookId, (a, b) => a == b) {
+      | Some(current) =>
+        books->Belt.List.setAssoc(
+          book.bookId,
+          {
+            ...current,
+            notes: current.notes->Belt.Array.concat([
+              {page: book.page, location: book.location, text: book.content},
+            ]),
+          },
+          (a, b) => a == b,
+        )
+      | None =>
+        books->Belt.List.setAssoc(
+          book.bookId,
+          {
+            authors: book.authors,
+            bookId: book.bookId,
+            date: book.date,
+            id: book.id,
+            title: book.title,
+            issues: book.issues,
+            notes: [{page: book.page, location: book.location, text: book.content}],
+          },
+          (a, b) => a == b,
+        )
       }
     })
+    ->Belt.List.map(((_id, book)) => book)
+    ->Belt.List.toArray
+
+  let createNotes = notes => {
+    notes
+    ->Belt.Array.map(({text, location}) => {
+      switch (copyType, includeLocation) {
+      | (Markdown, true) => `- ${text} (location ${location})`
+      | (Markdown, false) => `- ${text}`
+      | (Roam, true) => `${text} (location ${location})`
+      | (Roam, false) => text
+      | (Logseq, true) => `## ${text} (location ${location})`
+      | (Logseq, false) => `## ${text}`
+      }
+    })
+    ->Js.Array2.joinWith(copyJoinRowsBy)
+  }
+
+  let copyTemplate = switch customTemplate {
+  | "" => allBooks->Belt.Array.map(({notes}) => createNotes(notes))->Js.Array2.joinWith("\n")
+  | template =>
+    allBooks
+    ->Belt.Array.map(({authors, title, notes}) => {
+      let content = createNotes(notes)
+      let author = authors->Belt.Array.map(author => `[[${author}]]`)->Js.Array2.joinWith(", ")
+
+      template
+      ->Js.String2.replace("{{author}}", author)
+      ->Js.String2.replace("{{notes}}", content)
+      ->Js.String2.replace("{{title}}", title)
+    })
+    ->Js.Array2.joinWith(copyJoinRowsBy)
+  }
 
   <>
     <Lib.CopyToClipboard
-      text={copyData->Js.Array2.joinWith(copyJoinRowsBy)}
+      text={copyTemplate}
       onCopy={_ => {
         let numberOfHighlights = rows->Belt.Array.length->Belt.Int.toString
         Lib.HotToast.make->Lib.HotToast.success(`${numberOfHighlights} highlights copied!`)

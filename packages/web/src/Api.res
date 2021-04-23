@@ -14,6 +14,7 @@ module Issue = {
 module Highlight = {
   type t = {
     authors: array<string>,
+    bookId: string,
     content: string,
     date: option<string>,
     id: string,

@@ -61,12 +61,28 @@ module IncludeIssuesConfig = {
     }
 }
 
+module CustomTemplateConfig = {
+  type t = string
+
+  let key = "include-template"
+
+  let fromString = value =>
+    switch value {
+    | Some(value) => value
+    | None => ""
+    }
+
+  let toString = value => value
+}
+
 module Context = {
   type t = {
     copyType: CopyTypeConfig.t,
+    customTemplate: CustomTemplateConfig.t,
     includeIssues: IncludeIssuesConfig.t,
     includeLocation: IncludeLocationConfig.t,
     setCopyType: CopyTypeConfig.t => unit,
+    setCustomTemplate: CustomTemplateConfig.t => unit,
     setIncludeIssues: IncludeIssuesConfig.t => unit,
     setIncludeLocation: IncludeLocationConfig.t => unit,
   }
@@ -76,9 +92,11 @@ module Context = {
 
     let defaultValue = {
       copyType: Markdown,
+      customTemplate: "",
       includeIssues: true,
       includeLocation: false,
       setCopyType: _ => (),
+      setCustomTemplate: _ => (),
       setIncludeIssues: _ => (),
       setIncludeLocation: _ => (),
     }
@@ -88,6 +106,7 @@ module Context = {
 module CopyType = Storage.Make(CopyTypeConfig)
 module IncludeLocation = Storage.Make(IncludeLocationConfig)
 module IncludeIssues = Storage.Make(IncludeIssuesConfig)
+module CustomTemplate = Storage.Make(CustomTemplateConfig)
 
 module Provider = {
   @react.component
@@ -95,13 +114,16 @@ module Provider = {
     let (copyType, setCopyType) = CopyType.useLocalStorage()
     let (includeLocation, setIncludeLocation) = IncludeLocation.useLocalStorage()
     let (includeIssues, setIncludeIssues) = IncludeIssues.useLocalStorage()
+    let (customTemplate, setCustomTemplate) = CustomTemplate.useLocalStorage()
 
     <Context.Provider
       value={{
         copyType: copyType,
+        customTemplate: customTemplate,
         includeIssues: includeIssues,
         includeLocation: includeLocation,
         setCopyType: setCopyType,
+        setCustomTemplate: setCustomTemplate,
         setIncludeIssues: setIncludeIssues,
         setIncludeLocation: setIncludeLocation,
       }}>
