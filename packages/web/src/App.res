@@ -15,7 +15,7 @@ let make = () => {
 
   <GlobalState.Provider>
     <Lib.HotToast.Toaster />
-    <div className="max-w-6xl mx-auto py-8 md:py-20 px-5 md:px-0">
+    <div className="max-w-6xl mx-auto py-8 md:py-20 px-5 xl:px-0">
       <h1 className="text-3xl font-bold"> {React.string("Kindle highlights")} </h1>
       <p className="max-w-3xl mt-4 mb-2 text-gray-600 dark:text-gray-400 text-sm">
         {React.string(
