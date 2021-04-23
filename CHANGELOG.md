@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/believer/kindle-highlights/compare/v1.1.1...v1.2.0) (2021-04-23)
+
+
+### Features
+
+* **web:** option to exclude notes with potential issues in copy ([6d53e6b](https://github.com/believer/kindle-highlights/commit/6d53e6b874e8b2ae23569f2193b8761df5c330e7))
+
 ## [1.1.1](https://github.com/believer/kindle-highlights/compare/v1.1.0...v1.1.1) (2021-04-22)
 
 
