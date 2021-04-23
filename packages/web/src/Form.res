@@ -45,7 +45,15 @@ module Checkbox = {
   let make = (~id, ~name, ~label, ~checked, ~onChange) => {
     <label className="flex gap-x-2 items-center text-sm cursor-pointer group">
       <input
-        className="absolute -left-96 sibling-focus" checked onChange type_="checkbox" name={name} id
+        className="absolute -left-96 sibling-focus"
+        checked
+        onChange={e => {
+          let checked = (e->ReactEvent.Form.target)["checked"]
+          onChange(checked)
+        }}
+        type_="checkbox"
+        name={name}
+        id
       />
       <div
         className={Cn.fromList(list{

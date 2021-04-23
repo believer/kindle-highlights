@@ -57,20 +57,14 @@ let make = () => {
         id="include-location"
         name="include-location"
         label="Include location"
-        onChange={e => {
-          let checked = (e->ReactEvent.Form.target)["checked"]
-          setIncludeLocation(checked)
-        }}
+        onChange={setIncludeLocation}
       />
       <Form.Checkbox
         checked={includeIssues}
         id="include-issues"
         name="include-issues"
         label="Include notes with potential issues"
-        onChange={e => {
-          let checked = (e->ReactEvent.Form.target)["checked"]
-          setIncludeIssues(checked)
-        }}
+        onChange={setIncludeIssues}
       />
     </div>
   </div>
