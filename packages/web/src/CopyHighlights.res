@@ -71,7 +71,7 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
     ->Belt.List.map(((_id, book)) => book)
     ->Belt.List.toArray
 
-  let createNotes = notes => {
+  let createHighlights = notes => {
     notes
     ->Belt.Array.map(({text, location}) => {
       switch (copyType, includeLocation) {
@@ -87,16 +87,16 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
   }
 
   let copyTemplate = switch customTemplate {
-  | "" => allBooks->Belt.Array.map(({notes}) => createNotes(notes))->Js.Array2.joinWith("\n")
+  | "" => allBooks->Belt.Array.map(({notes}) => createHighlights(notes))->Js.Array2.joinWith("\n")
   | template =>
     allBooks
     ->Belt.Array.map(({authors, title, notes}) => {
-      let content = createNotes(notes)
+      let highlights = createHighlights(notes)
       let author = authors->Belt.Array.map(author => `[[${author}]]`)->Js.Array2.joinWith(", ")
 
       template
       ->Js.String2.replace("{{author}}", author)
-      ->Js.String2.replace("{{notes}}", content)
+      ->Js.String2.replace("{{highlights}}", highlights)
       ->Js.String2.replace("{{title}}", title)
     })
     ->Js.Array2.joinWith(copyJoinRowsBy)

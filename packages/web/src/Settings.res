@@ -80,7 +80,7 @@ let make = () => {
         </div>
         {React.string(", ")}
         <div className="inline-block px-1 rounded dark:bg-gray-800 dark:text-pink-400">
-          {React.string("{{notes}}")}
+          {React.string("{{highlights}}")}
         </div>
         {React.string(", ")}
         <div className="inline-block px-1 rounded dark:bg-gray-800 dark:text-pink-400">
