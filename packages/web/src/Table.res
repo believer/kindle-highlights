@@ -51,6 +51,7 @@ let make = (~rows: t) => {
     </div>
     <div className="text-sm border border-gray-200 rounded dark:border-gray-800">
       <div className="grid md:grid-table gap-2 md:gap-4 font-bold p-2 bg-gray-200 dark:bg-gray-700">
+        <div />
         <div> {React.string("Book")} </div>
         <div> {React.string("Authors")} </div>
         <div className="md:text-right"> {React.string("Page")} </div>
