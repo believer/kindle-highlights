@@ -1,6 +1,6 @@
 @react.component
 let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettings) => {
-  let {copyType, includeLocation} = GlobalState.use()
+  let {copyType, includeIssues, includeLocation} = GlobalState.use()
 
   let copyTypeToApp = switch copyType {
   | Markdown => "Markdown"
@@ -14,16 +14,25 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
   | Roam => "\n\n"
   }
 
-  let copyData = rows->Belt.Array.map(({content, location}) => {
-    switch (copyType, includeLocation) {
-    | (Markdown, true) => `- ${content} (location ${location})`
-    | (Markdown, false) => `- ${content}`
-    | (Roam, true) => `${content} (location ${location})`
-    | (Roam, false) => content
-    | (Logseq, true) => `## ${content} (location ${location})`
-    | (Logseq, false) => `## ${content}`
-    }
-  })
+  let copyData =
+    rows
+    ->Belt.Array.keep(({issues}) => {
+      switch (issues->Belt.Array.length, includeIssues) {
+      | (_, true) => true
+      | (0, false) => true
+      | (_, false) => false
+      }
+    })
+    ->Belt.Array.map(({content, location}) => {
+      switch (copyType, includeLocation) {
+      | (Markdown, true) => `- ${content} (location ${location})`
+      | (Markdown, false) => `- ${content}`
+      | (Roam, true) => `${content} (location ${location})`
+      | (Roam, false) => content
+      | (Logseq, true) => `## ${content} (location ${location})`
+      | (Logseq, false) => `## ${content}`
+      }
+    })
 
   <>
     <Lib.CopyToClipboard

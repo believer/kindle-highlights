@@ -1,4 +1,4 @@
-module Settings = {
+module CopyTypeConfig = {
   type t = Markdown | Roam | Logseq
 
   let key = "copy-type"
@@ -21,7 +21,7 @@ module Settings = {
     }
 }
 
-module BoolValue = {
+module IncludeLocationConfig = {
   type t = bool
 
   let key = "include-location"
@@ -41,12 +41,34 @@ module BoolValue = {
     }
 }
 
+module IncludeIssuesConfig = {
+  type t = bool
+
+  let key = "include-issues"
+
+  let fromString = value =>
+    switch value {
+    | Some("false") => false
+    | Some("true") => true
+    | Some(_)
+    | None => true
+    }
+
+  let toString = value =>
+    switch value {
+    | true => "true"
+    | false => "false"
+    }
+}
+
 module Context = {
   type t = {
-    copyType: Settings.t,
-    setCopyType: Settings.t => unit,
-    includeLocation: BoolValue.t,
-    setIncludeLocation: BoolValue.t => unit,
+    copyType: CopyTypeConfig.t,
+    includeIssues: IncludeIssuesConfig.t,
+    includeLocation: IncludeLocationConfig.t,
+    setCopyType: CopyTypeConfig.t => unit,
+    setIncludeIssues: IncludeIssuesConfig.t => unit,
+    setIncludeLocation: IncludeLocationConfig.t => unit,
   }
 
   include ReactContext.Make({
@@ -54,27 +76,33 @@ module Context = {
 
     let defaultValue = {
       copyType: Markdown,
-      setCopyType: _ => (),
+      includeIssues: true,
       includeLocation: false,
+      setCopyType: _ => (),
+      setIncludeIssues: _ => (),
       setIncludeLocation: _ => (),
     }
   })
 }
 
-module CopyType = Storage.Make(Settings)
-module Location = Storage.Make(BoolValue)
+module CopyType = Storage.Make(CopyTypeConfig)
+module IncludeLocation = Storage.Make(IncludeLocationConfig)
+module IncludeIssues = Storage.Make(IncludeIssuesConfig)
 
 module Provider = {
   @react.component
   let make = (~children) => {
     let (copyType, setCopyType) = CopyType.useLocalStorage()
-    let (includeLocation, setIncludeLocation) = Location.useLocalStorage()
+    let (includeLocation, setIncludeLocation) = IncludeLocation.useLocalStorage()
+    let (includeIssues, setIncludeIssues) = IncludeIssues.useLocalStorage()
 
     <Context.Provider
       value={{
         copyType: copyType,
-        setCopyType: setCopyType,
+        includeIssues: includeIssues,
         includeLocation: includeLocation,
+        setCopyType: setCopyType,
+        setIncludeIssues: setIncludeIssues,
         setIncludeLocation: setIncludeLocation,
       }}>
       children

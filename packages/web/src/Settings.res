@@ -1,22 +1,31 @@
+open GlobalState
+
 @react.component
 let make = () => {
-  let {copyType, setCopyType, includeLocation, setIncludeLocation} = GlobalState.use()
+  let {
+    copyType,
+    includeIssues,
+    includeLocation,
+    setCopyType,
+    setIncludeIssues,
+    setIncludeLocation,
+  } = use()
 
   <div className="mt-8 border-gray-200 dark:border-gray-800 border p-5 grid grid-cols-2">
     <Form.RadioButtonGroup
       label="Preferred format to copy highlights"
       name="copy-type"
-      onChange={value => {setCopyType(GlobalState.Settings.fromString(value))}}>
+      onChange={value => {setCopyType(CopyTypeConfig.fromString(value))}}>
       <Form.RadioButton
         checked={switch copyType {
         | Markdown => true
         | Roam
         | Logseq => false
         }}
-        id={GlobalState.Settings.toString(Markdown)}
+        id={CopyTypeConfig.toString(Markdown)}
         label="Markdown"
         name="copy-type"
-        value={GlobalState.Settings.toString(Markdown)}
+        value={CopyTypeConfig.toString(Markdown)}
       />
       <Form.RadioButton
         checked={switch copyType {
@@ -24,10 +33,10 @@ let make = () => {
         | Markdown
         | Logseq => false
         }}
-        id={GlobalState.Settings.toString(Roam)}
+        id={CopyTypeConfig.toString(Roam)}
         label="Roam Research"
         name="copy-type"
-        value={GlobalState.Settings.toString(Roam)}
+        value={CopyTypeConfig.toString(Roam)}
       />
       <Form.RadioButton
         checked={switch copyType {
@@ -35,14 +44,14 @@ let make = () => {
         | Roam
         | Markdown => false
         }}
-        id={GlobalState.Settings.toString(Logseq)}
+        id={CopyTypeConfig.toString(Logseq)}
         label="Logseq"
         name="copy-type"
-        value={GlobalState.Settings.toString(Logseq)}
+        value={CopyTypeConfig.toString(Logseq)}
       />
     </Form.RadioButtonGroup>
-    <div>
-      <div className="mb-4 text-sm font-semibold"> {React.string("Other settings")} </div>
+    <div className="space-y-4">
+      <div className="text-sm font-semibold"> {React.string("Other settings")} </div>
       <Form.Checkbox
         checked={includeLocation}
         id="include-location"
@@ -51,6 +60,16 @@ let make = () => {
         onChange={e => {
           let checked = (e->ReactEvent.Form.target)["checked"]
           setIncludeLocation(checked)
+        }}
+      />
+      <Form.Checkbox
+        checked={includeIssues}
+        id="include-issues"
+        name="include-issues"
+        label="Include notes with potential issues"
+        onChange={e => {
+          let checked = (e->ReactEvent.Form.target)["checked"]
+          setIncludeIssues(checked)
         }}
       />
     </div>
