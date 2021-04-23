@@ -1,3 +1,16 @@
+# [1.3.0](https://github.com/believer/kindle-highlights/compare/v1.2.1...v1.3.0) (2021-04-23)
+
+
+### Bug Fixes
+
+* **web:** content padding on smaller screens ([59aa52f](https://github.com/believer/kindle-highlights/commit/59aa52fdaca7f21f455fa1f81717e4a57afd29b5))
+
+
+### Features
+
+* **api:** add book id ([beffc76](https://github.com/believer/kindle-highlights/commit/beffc76674fccdce9be9af2770f108fb7a6450d0))
+* **web:** add custom template ([eb37586](https://github.com/believer/kindle-highlights/commit/eb375869f2fb54f44c5453eb779fa45ebdcb604f))
+
 ## [1.2.1](https://github.com/believer/kindle-highlights/compare/v1.2.0...v1.2.1) (2021-04-23)
 
 
