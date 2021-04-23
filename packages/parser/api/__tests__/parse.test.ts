@@ -73,6 +73,16 @@ describe('#metadata', () => {
 })
 
 describe('#titleAndAuthors', () => {
+  test('handles only title', () => {
+    const line = Buffer.from('Make Time')
+
+    expect(titleAndAuthors(line)).toEqual({
+      title: 'Make Time',
+      authors: [],
+      series: null,
+    })
+  })
+
   test('handles parsing title and author', () => {
     const line = Buffer.from('Make Time (Knapp, Jake)')
 

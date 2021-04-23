@@ -42,13 +42,12 @@ interface TitleAuthor {
 export const titleAndAuthors = (line: Buffer | false): TitleAuthor => {
   const titleRow = line
     .toString('utf8')
-    .match(/^(?<title>.+)\s\((?<author>.+)\)\s?$/)
+    .match(
+      /^(?<title>[^\(]+)( ?\((?<series>[^\)]+)\))?( ?\((?<author>[^\)]+))?/
+    )
 
-  const { title, author } = titleRow?.groups ?? {}
-
-  const titleWithSeries = title.match(/\((?<series>.+)\)/i)
-
-  const { series } = titleWithSeries?.groups ?? {}
+  const { title, author, series } = titleRow?.groups ?? {}
+  const parsedAuthor = series && !author ? series : author
 
   const titleWithoutSubtitle = title.includes(':')
     ? title.replace(/:.+/, '')
@@ -58,16 +57,18 @@ export const titleAndAuthors = (line: Buffer | false): TitleAuthor => {
     title: series
       ? titleWithoutSubtitle.replace(/ \((.+)\)/, '').trim()
       : titleWithoutSubtitle.trim(),
-    series: series ?? null,
-    authors: author.split(';').map((author: string) => {
-      if (author.includes(',')) {
-        const [lastName, firstName] = author.split(', ')
+    series: series && author ? series : null,
+    authors: parsedAuthor
+      ? parsedAuthor.split(';').map((author: string) => {
+          if (author.includes(',')) {
+            const [lastName, firstName] = author.split(', ')
 
-        return `${firstName.trim()} ${lastName.trim()}`
-      }
+            return `${firstName.trim()} ${lastName.trim()}`
+          }
 
-      return author
-    }),
+          return author
+        })
+      : [],
   }
 }
 
