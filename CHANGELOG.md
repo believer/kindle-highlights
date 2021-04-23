@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/believer/kindle-highlights/compare/v1.3.0...v1.3.1) (2021-04-23)
+
+
+### Bug Fixes
+
+* **parser:** handle title without author ([1bd6941](https://github.com/believer/kindle-highlights/commit/1bd6941a08f868c38302323f2e84e73d1820c5c9))
+
 # [1.3.0](https://github.com/believer/kindle-highlights/compare/v1.2.1...v1.3.0) (2021-04-23)
 
 
