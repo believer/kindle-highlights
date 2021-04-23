@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/believer/kindle-highlights/compare/v1.3.2...v1.3.3) (2021-04-23)
+
+
+### Bug Fixes
+
+* **parser:** handle highlights starting with information row ([487078e](https://github.com/believer/kindle-highlights/commit/487078e8a20384251ed6f6568f05512a17123adc))
+
 ## [1.3.2](https://github.com/believer/kindle-highlights/compare/v1.3.1...v1.3.2) (2021-04-23)
 
 
