@@ -166,6 +166,7 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
         location,
         page,
         title,
+        bookId: md5(title),
         issues: findIssues({
           containsSimilar: containsSimilar > -1,
           bodyLength: content.length,
