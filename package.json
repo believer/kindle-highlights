@@ -7,5 +7,5 @@
   "scripts": {
     "test": "lerna run test --stream"
   },
-  "version": "1.2.0"
+  "version": "1.2.1"
 }

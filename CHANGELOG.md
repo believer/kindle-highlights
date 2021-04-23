@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/believer/kindle-highlights/compare/v1.2.0...v1.2.1) (2021-04-23)
+
+
+### Bug Fixes
+
+* **web:** missing table head column ([fd2b366](https://github.com/believer/kindle-highlights/commit/fd2b366b2e42882c28d750142bc9756d17727447))
+
 # [1.2.0](https://github.com/believer/kindle-highlights/compare/v1.1.1...v1.2.0) (2021-04-23)
 
 
