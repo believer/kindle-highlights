@@ -73,6 +73,19 @@ describe('#metadata', () => {
 })
 
 describe('#titleAndAuthors', () => {
+  test('handles missing title', () => {
+    // Swallow error logging
+    jest.spyOn(console, 'error').mockImplementation(() => {})
+
+    const line = Buffer.from('')
+
+    expect(titleAndAuthors(line)).toEqual({
+      title: '',
+      authors: [],
+      series: null,
+    })
+  })
+
   test('handles only title', () => {
     const line = Buffer.from('Make Time')
 

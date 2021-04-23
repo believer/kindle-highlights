@@ -40,35 +40,45 @@ interface TitleAuthor {
 }
 
 export const titleAndAuthors = (line: Buffer | false): TitleAuthor => {
-  const titleRow = line
-    .toString('utf8')
-    .match(
-      /^(?<title>[^\(]+)( ?\((?<series>[^\)]+)\))?( ?\((?<author>[^\)]+))?/
-    )
+  try {
+    const titleRow = line
+      .toString('utf8')
+      .match(
+        /^(?<title>[^\(]+)( ?\((?<series>[^\)]+)\))?( ?\((?<author>[^\)]+))?/
+      )
 
-  const { title, author, series } = titleRow?.groups ?? {}
-  const parsedAuthor = series && !author ? series : author
+    const { title, author, series } = titleRow?.groups ?? {}
+    const parsedAuthor = series && !author ? series : author
 
-  const titleWithoutSubtitle = title.includes(':')
-    ? title.replace(/:.+/, '')
-    : title
+    const titleWithoutSubtitle = title.includes(':')
+      ? title.replace(/:.+/, '')
+      : title
 
-  return {
-    title: series
-      ? titleWithoutSubtitle.replace(/ \((.+)\)/, '').trim()
-      : titleWithoutSubtitle.trim(),
-    series: series && author ? series : null,
-    authors: parsedAuthor
-      ? parsedAuthor.split(';').map((author: string) => {
-          if (author.includes(',')) {
-            const [lastName, firstName] = author.split(', ')
+    return {
+      title: series
+        ? titleWithoutSubtitle.replace(/ \((.+)\)/, '').trim()
+        : titleWithoutSubtitle.trim(),
+      series: series && author ? series : null,
+      authors: parsedAuthor
+        ? parsedAuthor.split(';').map((author: string) => {
+            if (author.includes(',')) {
+              const [lastName, firstName] = author.split(', ')
 
-            return `${firstName.trim()} ${lastName.trim()}`
-          }
+              return `${firstName.trim()} ${lastName.trim()}`
+            }
 
-          return author
-        })
-      : [],
+            return author
+          })
+        : [],
+    }
+  } catch (e) {
+    console.error(e, line.toString('utf8'))
+
+    return {
+      title: '',
+      authors: [],
+      series: null,
+    }
   }
 }
 
@@ -125,7 +135,7 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
 
     // Skip block start line
     // Next line, title and author
-    const { title, authors } = titleAndAuthors(line)
+    const { title, authors, series } = titleAndAuthors(line)
 
     // Next line, meta data
     line = liner.next()
@@ -164,6 +174,7 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
         id,
         content,
         date,
+        series,
         location,
         page,
         title,
