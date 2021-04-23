@@ -62,6 +62,37 @@ Array [
 ]
 `;
 
+exports[`#handler handle highlights without title row 1`] = `
+Array [
+  Object {
+    "authors": Array [],
+    "bookId": "d41d8cd98f00b204e9800998ecf8427e",
+    "content": "This test line doesn't contain a title row",
+    "date": "2021-03-23T21:59:53.000Z",
+    "id": "f41dcbde2a4cf10d3a9c72bb71435ec6",
+    "issues": Array [],
+    "location": "3000",
+    "page": "199",
+    "series": null,
+    "title": "",
+  },
+  Object {
+    "authors": Array [
+      "Ryan Holiday",
+    ],
+    "bookId": "1effbc7cf88182c03580bcc3edd9e895",
+    "content": "“He who fears death will never do anything worthy of a living man,” Seneca once said. Alter that: He who will do anything to avoid failure will almost certainly do something worthy of a failure.",
+    "date": "2021-03-23T21:59:33.000Z",
+    "id": "556f6bc53437f85b0d3420a8deb9402e",
+    "issues": Array [],
+    "location": "2227",
+    "page": "193",
+    "series": "The Way, the Enemy and the Key",
+    "title": "Ego is the Enemy",
+  },
+]
+`;
+
 exports[`#handler only include the latest if multiple clippings 1`] = `
 Array [
   Object {

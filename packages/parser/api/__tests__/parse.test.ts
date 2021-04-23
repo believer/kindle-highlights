@@ -215,6 +215,31 @@ Ego is the Enemy (The Way, the Enemy and the Key) (Holiday, Ryan)
 
     expect(res.json.mock.calls[0][0]).toMatchSnapshot()
   })
+
+  test('handle highlights without title row', async () => {
+    // Swallow error logging
+    jest.spyOn(console, 'error').mockImplementation(() => {})
+
+    const data = `Ego is the Enemy (The Way, the Enemy and the Key) (Holiday, Ryan)
+- Your Highlight on page 193 | Location 2227-2227 | Added on Tuesday, March 23, 2021 10:59:33 PM
+
+“He who fears death will never do anything worthy of a living man,” Seneca once said. Alter that: He who will do anything to avoid failure will almost certainly do something worthy of a failure.
+==========
+- Your Highlight on page 199 | Location 3000-3100 | Added on Tuesday, March 23, 2021 10:59:53 PM
+
+This test line doesn't contain a title row
+==========`
+
+    const req: any = {
+      body: JSON.stringify({ data }),
+    }
+
+    const res: any = { json: jest.fn() }
+
+    await handler(req, res)
+
+    expect(res.json.mock.calls[0][0]).toMatchSnapshot()
+  })
 })
 
 describe('#findIssues', () => {

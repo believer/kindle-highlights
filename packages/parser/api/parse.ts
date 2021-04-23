@@ -41,6 +41,10 @@ interface TitleAuthor {
 
 export const titleAndAuthors = (line: Buffer | false): TitleAuthor => {
   try {
+    if (line.toString('utf8').startsWith('- Your')) {
+      throw new Error('Highlight row as title')
+    }
+
     const titleRow = line
       .toString('utf8')
       .match(
@@ -138,7 +142,10 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
     const { title, authors, series } = titleAndAuthors(line)
 
     // Next line, meta data
-    line = liner.next()
+    if (!line.toString('utf8').startsWith('- Your')) {
+      line = liner.next()
+    }
+
     const { date, page, location } = metadata(line)
 
     // Skip space between meta and content
