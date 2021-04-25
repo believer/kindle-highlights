@@ -38,6 +38,7 @@ let make = () => {
           | Obsidian
           | Logseq => false
           }}
+          hint="Right click and select 'Paste and match style'"
           id={CopyTypeConfig.toString(Roam)}
           label="Roam Research"
           name="copy-type"
@@ -62,6 +63,7 @@ let make = () => {
           | Roam
           | Markdown => false
           }}
+          hint="Right click and select 'Paste as text' or CMD +  Shift + V"
           id={CopyTypeConfig.toString(Obsidian)}
           label="Obsidian"
           name="copy-type"

@@ -15,28 +15,35 @@ module RadioButtonGroup = {
 
 module RadioButton = {
   @react.component
-  let make = (~value, ~id, ~name, ~label, ~checked) => {
-    <label className="flex gap-x-2 items-center text-sm cursor-pointer group">
-      <input
-        className="absolute -left-96 sibling-focus"
-        checked
-        readOnly={true}
-        type_="radio"
-        name={name}
-        id
-        value={value}
-      />
-      <div
-        className={Cn.fromList(list{
-          "border-2 rounded-full p-1 w-6 h-6 group-hover:ring-2 group-hover:ring-offset-2 group-hover:ring-pink-300 dark:group-hover:ring-offset-gray-900 dark:group-hover:ring-pink-600",
-          switch checked {
-          | true => "bg-pink-300 border-pink-400"
-          | false => "border-gray-300"
-          },
-        })}
-      />
-      {React.string(label)}
-    </label>
+  let make = (~value, ~id, ~name, ~label, ~checked, ~hint=?) => {
+    <div>
+      <label className="flex gap-x-2 items-center text-sm cursor-pointer group">
+        <input
+          className="absolute -left-96 sibling-focus"
+          checked
+          readOnly={true}
+          type_="radio"
+          name={name}
+          id
+          value={value}
+        />
+        <div
+          className={Cn.fromList(list{
+            "border-2 rounded-full p-1 w-6 h-6 group-hover:ring-2 group-hover:ring-offset-2 group-hover:ring-pink-300 dark:group-hover:ring-offset-gray-900 dark:group-hover:ring-pink-600",
+            switch checked {
+            | true => "bg-pink-300 border-pink-400"
+            | false => "border-gray-300"
+            },
+          })}
+        />
+        {React.string(label)}
+      </label>
+      {switch hint {
+      | Some(hint) =>
+        <div className="text-xs mt-2 text-gray-500 dark:text-gray-400"> {hint->React.string} </div>
+      | None => React.null
+      }}
+    </div>
   }
 }
 
