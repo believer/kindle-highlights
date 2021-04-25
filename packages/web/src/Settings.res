@@ -92,15 +92,18 @@ let make = () => {
       <Form.Textarea label="Custom template" onChange={setCustomTemplate} value={customTemplate} />
       <div className="text-sm dark:text-gray-400 mt-2">
         {React.string("Available variables: ")}
-        <div className="inline-block px-1 rounded dark:bg-gray-800 dark:text-pink-400">
+        <div
+          className="inline-block px-1 rounded dark:bg-gray-800 dark:text-pink-400 bg-gray-100 text-pink-600">
           {React.string("{{author}}")}
         </div>
         {React.string(", ")}
-        <div className="inline-block px-1 rounded dark:bg-gray-800 dark:text-pink-400">
+        <div
+          className="inline-block px-1 rounded dark:bg-gray-800 dark:text-pink-400 bg-gray-100 text-pink-600">
           {React.string("{{highlights}}")}
         </div>
         {React.string(", ")}
-        <div className="inline-block px-1 rounded dark:bg-gray-800 dark:text-pink-400">
+        <div
+          className="inline-block px-1 rounded dark:bg-gray-800 dark:text-pink-400 bg-gray-100 text-pink-600">
           {React.string("{{title}}")}
         </div>
       </div>
