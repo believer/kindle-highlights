@@ -22,11 +22,13 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
   | Markdown => "Markdown"
   | Roam => "Roam"
   | Logseq => "Logseq"
+  | Obsidian => "Obsidian"
   }
 
   let copyJoinRowsBy = switch copyType {
   | Logseq
   | Markdown => "\n"
+  | Obsidian
   | Roam => "\n\n"
   }
 
@@ -81,6 +83,8 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
       | (Roam, false) => text
       | (Logseq, true) => `## ${text} (location ${location})`
       | (Logseq, false) => `## ${text}`
+      | (Obsidian, true) => `${text} (location ${location})`
+      | (Obsidian, false) => text
       }
     })
     ->Js.Array2.joinWith(copyJoinRowsBy)
@@ -101,6 +105,8 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
     })
     ->Js.Array2.joinWith(copyJoinRowsBy)
   }
+
+  Js.log(copyTemplate)
 
   <>
     <Lib.CopyToClipboard

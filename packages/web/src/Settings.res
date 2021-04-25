@@ -23,6 +23,7 @@ let make = () => {
           checked={switch copyType {
           | Markdown => true
           | Roam
+          | Obsidian
           | Logseq => false
           }}
           id={CopyTypeConfig.toString(Markdown)}
@@ -34,6 +35,7 @@ let make = () => {
           checked={switch copyType {
           | Roam => true
           | Markdown
+          | Obsidian
           | Logseq => false
           }}
           id={CopyTypeConfig.toString(Roam)}
@@ -45,12 +47,25 @@ let make = () => {
           checked={switch copyType {
           | Logseq => true
           | Roam
+          | Obsidian
           | Markdown => false
           }}
           id={CopyTypeConfig.toString(Logseq)}
           label="Logseq"
           name="copy-type"
           value={CopyTypeConfig.toString(Logseq)}
+        />
+        <Form.RadioButton
+          checked={switch copyType {
+          | Obsidian => true
+          | Logseq
+          | Roam
+          | Markdown => false
+          }}
+          id={CopyTypeConfig.toString(Obsidian)}
+          label="Obsidian"
+          name="copy-type"
+          value={CopyTypeConfig.toString(Obsidian)}
         />
       </Form.RadioButtonGroup>
       <div className="mt-8 space-y-4">

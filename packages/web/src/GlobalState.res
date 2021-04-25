@@ -1,11 +1,12 @@
 module CopyTypeConfig = {
-  type t = Markdown | Roam | Logseq
+  type t = Markdown | Roam | Logseq | Obsidian
 
   let key = "copy-type"
 
   let fromString = value =>
     switch value {
     | Some("markdown") => Markdown
+    | Some("obsidian") => Obsidian
     | Some("roam") => Roam
     | Some("logseq") => Logseq
     | Some(_)
@@ -18,6 +19,7 @@ module CopyTypeConfig = {
     | Markdown => "markdown"
     | Roam => "roam"
     | Logseq => "logseq"
+    | Obsidian => "obsidian"
     }
 }
 
