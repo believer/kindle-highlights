@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/believer/kindle-highlights/compare/v1.3.3...v1.4.0) (2021-04-25)
+
+
+### Bug Fixes
+
+* **web:** template variables in light mode ([f9f0550](https://github.com/believer/kindle-highlights/commit/f9f05500a3399a1e5306e8f0b709d0f3241f2fee))
+* **web:** textarea in light mode ([dd064e3](https://github.com/believer/kindle-highlights/commit/dd064e3a0f7ab28bf27f2ecd42cc62d8c3036001))
+
+
+### Features
+
+* **web:** copy to obsidian ([1ec7461](https://github.com/believer/kindle-highlights/commit/1ec74611e95d391597da89b9ae4e54ba9534c5c4))
+
 ## [1.3.3](https://github.com/believer/kindle-highlights/compare/v1.3.2...v1.3.3) (2021-04-23)
 
 
