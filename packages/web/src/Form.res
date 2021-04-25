@@ -97,7 +97,7 @@ module Textarea = {
     <label className="block text-sm">
       <div className="font-bold mb-4"> {React.string(label)} </div>
       <textarea
-        className="dark:bg-gray-800 dark:border-gray-700 w-full h-48 rounded resize-none focus:outline-none dark:focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 dark:focus:ring-pink-600 p-5"
+        className="border-gray-300 border dark:bg-gray-800 dark:border-gray-700 w-full h-48 rounded resize-none focus:outline-none dark:focus:ring-2 focus:ring-offset-2 dark:focus:ring-offset-gray-900 dark:focus:ring-pink-600 p-5"
         onChange={e => {
           let value = (e->ReactEvent.Form.target)["value"]
           onChange(value)
