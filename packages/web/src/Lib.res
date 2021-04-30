@@ -8,15 +8,10 @@ module CopyToClipboard = {
 }
 
 module HotToast = {
-  type t
-
   module Toaster = {
     @react.component @module("react-hot-toast")
     external make: unit => React.element = "Toaster"
   }
 
-  @module("react-hot-toast")
-  external make: t = "default"
-
-  @send external success: (t, string) => unit = "success"
+  @module("react-hot-toast") @scope("toast") external success: string => unit = "success"
 }

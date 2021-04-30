@@ -106,14 +106,12 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
     ->Js.Array2.joinWith(copyJoinRowsBy)
   }
 
-  Js.log(copyTemplate)
-
   <>
     <Lib.CopyToClipboard
       text={copyTemplate}
       onCopy={_ => {
         let numberOfHighlights = rows->Belt.Array.length->Belt.Int.toString
-        Lib.HotToast.make->Lib.HotToast.success(`${numberOfHighlights} highlights copied!`)
+        Lib.HotToast.success(`${numberOfHighlights} highlights copied!`)
       }}>
       <button
         className="bg-white text-gray-700 border border-gray-200 shadow-md rounded px-3 py-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 active:ring-indigo-400 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:ring-offset-gray-900 dark:focus:ring-indigo-800 dark:hover:ring-indigo-800 dark:active:ring-pink-600">
