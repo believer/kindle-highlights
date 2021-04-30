@@ -77,16 +77,19 @@ module CustomTemplateConfig = {
   let toString = value => value
 }
 
+type t =
+  | UpdateCopyType(option<string>)
+  | UpdateIncludeLocation(IncludeLocationConfig.t)
+  | UpdateIncludeIssues(IncludeIssuesConfig.t)
+  | UpdateCustomTemplate(CustomTemplateConfig.t)
+
 module Context = {
   type t = {
     copyType: CopyTypeConfig.t,
     customTemplate: CustomTemplateConfig.t,
     includeIssues: IncludeIssuesConfig.t,
     includeLocation: IncludeLocationConfig.t,
-    setCopyType: CopyTypeConfig.t => unit,
-    setCustomTemplate: CustomTemplateConfig.t => unit,
-    setIncludeIssues: IncludeIssuesConfig.t => unit,
-    setIncludeLocation: IncludeLocationConfig.t => unit,
+    update: t => unit,
   }
 
   include ReactContext.Make({
@@ -97,10 +100,7 @@ module Context = {
       customTemplate: "",
       includeIssues: true,
       includeLocation: false,
-      setCopyType: _ => (),
-      setCustomTemplate: _ => (),
-      setIncludeIssues: _ => (),
-      setIncludeLocation: _ => (),
+      update: _ => (),
     }
   })
 }
@@ -118,16 +118,21 @@ module Provider = {
     let (includeIssues, setIncludeIssues) = IncludeIssues.useLocalStorage()
     let (customTemplate, setCustomTemplate) = CustomTemplate.useLocalStorage()
 
+    let update = updateType =>
+      switch updateType {
+      | UpdateCopyType(value) => value->CopyTypeConfig.fromString->setCopyType
+      | UpdateCustomTemplate(value) => value->setCustomTemplate
+      | UpdateIncludeIssues(value) => value->setIncludeIssues
+      | UpdateIncludeLocation(value) => value->setIncludeLocation
+      }
+
     <Context.Provider
       value={{
         copyType: copyType,
         customTemplate: customTemplate,
         includeIssues: includeIssues,
         includeLocation: includeLocation,
-        setCopyType: setCopyType,
-        setCustomTemplate: setCustomTemplate,
-        setIncludeIssues: setIncludeIssues,
-        setIncludeLocation: setIncludeLocation,
+        update: update,
       }}>
       children
     </Context.Provider>

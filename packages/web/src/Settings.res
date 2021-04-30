@@ -2,23 +2,14 @@ open GlobalState
 
 @react.component
 let make = () => {
-  let {
-    copyType,
-    customTemplate,
-    includeIssues,
-    includeLocation,
-    setCopyType,
-    setCustomTemplate,
-    setIncludeIssues,
-    setIncludeLocation,
-  } = use()
+  let {copyType, customTemplate, includeIssues, includeLocation, update} = GlobalState.use()
 
   <div className="mt-8 border-gray-200 dark:border-gray-800 border p-5 grid grid-cols-2">
     <div>
       <Form.RadioButtonGroup
         label="Preferred format to copy highlights"
         name="copy-type"
-        onChange={value => {setCopyType(CopyTypeConfig.fromString(value))}}>
+        onChange={value => {update(UpdateCopyType(value))}}>
         <Form.RadioButton
           checked={switch copyType {
           | Markdown => true
@@ -77,19 +68,23 @@ let make = () => {
           id="include-location"
           name="include-location"
           label="Include location"
-          onChange={setIncludeLocation}
+          onChange={value => update(UpdateIncludeLocation(value))}
         />
         <Form.Checkbox
           checked={includeIssues}
           id="include-issues"
           name="include-issues"
           label="Include notes with potential issues"
-          onChange={setIncludeIssues}
+          onChange={value => update(UpdateIncludeIssues(value))}
         />
       </div>
     </div>
     <div>
-      <Form.Textarea label="Custom template" onChange={setCustomTemplate} value={customTemplate} />
+      <Form.Textarea
+        label="Custom template"
+        onChange={value => update(UpdateCustomTemplate(value))}
+        value={customTemplate}
+      />
       <div className="text-sm dark:text-gray-400 mt-2">
         {React.string("Available variables: ")}
         <div
