@@ -1,10 +1,10 @@
-import lineByLine from 'n-readlines'
-import { promisify } from 'util'
-import path from 'path'
+import { VercelRequest, VercelResponse } from '@vercel/node'
 import fs from 'fs'
-import { allowCors } from '../utils/allowCors'
 import md5 from 'md5'
-import { NowRequest, NowResponse } from '@vercel/node'
+import lineByLine from 'n-readlines'
+import path from 'path'
+import { promisify } from 'util'
+import { allowCors } from '../utils/allowCors'
 
 const writeFile = promisify(fs.writeFile)
 const removeFile = promisify(fs.unlink)
@@ -123,7 +123,7 @@ const isValidBody = ({
   id: string
 }): boolean => body[0] !== '\r' && body[0] !== '' && !ids[id]
 
-export const handler = async (req: NowRequest, res: NowResponse) => {
+export const handler = async (req: VercelRequest, res: VercelResponse) => {
   const { data } = JSON.parse(req.body)
   let line: Buffer | false
   const output = []
@@ -162,7 +162,7 @@ export const handler = async (req: NowRequest, res: NowResponse) => {
     const content = body.join('\n')
     const id = md5(content)
 
-    // If a similar exist for the same page, location and title
+    // If a similar entry exist for the same page, location and title
     // remove it and only keep the last one
     const containsSimilar: number = output.findIndex(
       (highlight) =>
