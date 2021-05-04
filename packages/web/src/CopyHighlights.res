@@ -122,13 +122,13 @@ let make = (~rows: array<Api.Highlight.t>, ~search, ~toggleSettings, ~showSettin
       </button>
     </Lib.CopyToClipboard>
     <button
-      className={Cn.fromList(list{
+      className={cx([
         "border shadow-md rounded p-2 hover:ring-2 hover:ring-offset-2 hover:ring-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-200 active:ring-pink-300 dark:ring-offset-gray-900 dark:focus:ring-indigo-800 dark:hover:ring-indigo-800 dark:active:ring-pink-600",
         switch showSettings {
         | true => "bg-pink-300 text-pink-700 border-pink-400"
         | false => "bg-white text-gray-700 border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700"
         },
-      })}
+      ])}
       onClick={toggleSettings}>
       <svg
         xmlns="http://www.w3.org/2000/svg"

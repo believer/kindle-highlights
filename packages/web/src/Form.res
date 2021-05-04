@@ -28,13 +28,13 @@ module RadioButton = {
           value={value}
         />
         <div
-          className={Cn.fromList(list{
+          className={cx([
             "border-2 rounded-full p-1 w-6 h-6 group-hover:ring-2 group-hover:ring-offset-2 group-hover:ring-pink-300 dark:group-hover:ring-offset-gray-900 dark:group-hover:ring-pink-600",
             switch checked {
             | true => "bg-pink-300 border-pink-400"
             | false => "border-gray-300"
             },
-          })}
+          ])}
         />
         {React.string(label)}
       </label>
@@ -63,13 +63,13 @@ module Checkbox = {
         id
       />
       <div
-        className={Cn.fromList(list{
+        className={cx([
           "border-2 w-6 h-6 group-hover:ring-2 group-hover:ring-offset-2 group-hover:ring-pink-300 flex items-center justify-center dark:group-hover:ring-offset-gray-900 dark:group-hover:ring-pink-600 rounded-sm",
           switch checked {
           | true => "bg-pink-300 border-pink-400 text-pink-600"
           | false => "border-gray-300"
           },
-        })}>
+        ])}>
         {switch checked {
         | false => React.null
         | true =>

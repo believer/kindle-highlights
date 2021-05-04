@@ -5,10 +5,10 @@ let make = (~onDrop) => {
   let (isDragOver, setIsDragOver) = React.useState(() => false)
 
   <textarea
-    className={Cn.fromList(list{
+    className={cx([
       "fixed inset-0 bg-white w-full dark:bg-gray-900 -z-10",
-      "bg-indigo-100 dark:bg-indigo-900"->Cn.on(isDragOver),
-    })}
+      isDragOver ? "bg-indigo-100 dark:bg-indigo-900" : "",
+    ])}
     onDragEnter={_ => setIsDragOver(_ => true)}
     onDragLeave={_ => setIsDragOver(_ => false)}
     onDrop={e => {

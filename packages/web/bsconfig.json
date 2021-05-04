@@ -20,8 +20,9 @@
     "@rescript/react",
     "@ryyppy/rescript-promise",
     "@opendevtools/rescript-intl",
-    "re-classnames"
+    "rescript-classnames"
   ],
+  "bsc-flags": ["-open Cx"],
   "refmt": 3,
   "warnings": {
     "number": "+A-9-40-42-48",

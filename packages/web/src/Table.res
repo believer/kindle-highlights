@@ -61,13 +61,13 @@ let make = (~rows: t) => {
       {rows
       ->Belt.Array.mapWithIndex((i, {content, issues, authors, title, id, location, page}) => {
         <div
-          className={Cn.fromList(list{
+          className={cx([
             "grid md:grid-table gap-2 md:gap-4 p-2",
             switch mod(i, 2) {
             | 0 => "bg-gray-50 dark:bg-gray-800"
             | _ => "bg-white dark:bg-gray-900"
             },
-          })}
+          ])}
           key=id>
           <div className="font-bold truncate">
             {switch issues {
