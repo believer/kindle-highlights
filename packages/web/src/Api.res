@@ -1,4 +1,4 @@
-let baseUrl = "https://kindle-api.willcodefor.beer"
+let baseUrl = "https://kindle-to-logseq-parser.vercel.app"
 
 type t<'a> = Loading | Data('a) | NoData | Idle
 
